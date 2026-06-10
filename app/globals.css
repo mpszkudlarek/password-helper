@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Everforest light (hard) */
+:root {
+  --bg: #f2efdf;
+  --surface: #fffbef;
+  --inset: #f2efdf;
+  --line: #e8e5d5;
+  --line-strong: #ddd8be;
+  --fg: #5c6a72;
+  --muted: #939f91;
+  --faint: #bec5b2;
+  --accent: #8da101;
+  --digit: #3a94c5;
+  --upper: #dfa000;
+  --lower: #8da101;
+  --symbol: #f85552;
+  --keycap-hi: rgba(255, 255, 255, 0.6);
+  --keycap-lo: rgba(92, 106, 114, 0.16);
+  --grid-dot: rgba(92, 106, 114, 0.08);
+  --glow-top: rgba(141, 161, 1, 0.08);
+}
+
+/* Everforest dark (hard) */
+.dark {
+  --bg: #1e2326;
+  --surface: #272e33;
+  --inset: #1e2326;
+  --line: #374145;
+  --line-strong: #414b50;
+  --fg: #d3c6aa;
+  --muted: #859289;
+  --faint: #495156;
+  --accent: #a7c080;
+  --digit: #7fbbb3;
+  --upper: #dbbc7f;
+  --lower: #a7c080;
+  --symbol: #e67e80;
+  --keycap-hi: rgba(255, 255, 255, 0.07);
+  --keycap-lo: rgba(0, 0, 0, 0.35);
+  --grid-dot: rgba(211, 198, 170, 0.05);
+  --glow-top: rgba(167, 192, 128, 0.09);
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-inset: var(--inset);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-digit: var(--digit);
+  --color-upper: var(--upper);
+  --color-lower: var(--lower);
+  --color-symbol: var(--symbol);
+}
+
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(
+      ellipse 80% 60% at 50% -30%,
+      var(--glow-top),
+      transparent 70%
+    ),
+    radial-gradient(circle, var(--grid-dot) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    26px 26px;
+  color: var(--fg);
+}
+
+/* Keycap-style tile: top highlight, hard bottom edge, optional colored glow */
+.keycap {
+  --glow: transparent;
+  box-shadow:
+    inset 0 1px 0 var(--keycap-hi),
+    0 2px 0 var(--keycap-lo),
+    0 8px 20px -8px color-mix(in srgb, var(--glow) 40%, transparent);
+}
+
+/* Hide the horizontal scrollbar of the tile strip */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes tile-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.85);
+  }
+  60% {
+    transform: translateY(-1px) scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-tile-pop {
+  animation: tile-pop 0.22s cubic-bezier(0.2, 0.8, 0.3, 1.1) both;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-toast-in {
+  animation: toast-in 0.25s ease-out both;
+}
+
+/* Theme switch: circular reveal via View Transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Fallback for browsers without View Transitions */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    fill 0.35s ease,
+    box-shadow 0.35s ease !important;
+}

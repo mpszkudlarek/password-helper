@@ -15,6 +15,11 @@ export function ThemeToggle() {
     const next = !document.documentElement.classList.contains("dark");
     const apply = () => {
       document.documentElement.classList.toggle("dark", next);
+      try {
+        localStorage.setItem("theme", next ? "dark" : "light");
+      } catch {
+        // Storage unavailable (e.g. blocked) - theme just won't persist
+      }
       flushSync(() => setDark(next));
     };
 

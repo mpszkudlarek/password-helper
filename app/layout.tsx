@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "Read masked passwords character by character. Nothing is sent or stored - everything runs locally in your browser.",
 };
 
-const themeInitScript = `(function(){try{if(window.matchMedia("(prefers-color-scheme: dark)").matches)document.documentElement.classList.add("dark")}catch(e){}})()`;
+const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");var d=t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark")}catch(e){}})()`;
 
 export default function RootLayout({
   children,

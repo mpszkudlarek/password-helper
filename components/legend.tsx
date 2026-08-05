@@ -1,9 +1,9 @@
-import { CHAR_STYLES, type CharType } from "@/lib/characters";
+import { CHAR_STYLES, CHAR_TYPES } from "@/lib/characters";
 
 export function Legend() {
   return (
     <div className="mt-6 flex flex-wrap items-center justify-center gap-2 border-t border-line pt-5">
-      {(Object.keys(CHAR_STYLES) as CharType[]).map((type) => (
+      {CHAR_TYPES.map((type) => (
         <span
           key={type}
           className="flex items-center gap-2 rounded-full border border-line bg-inset/70 px-3 py-1.5 text-xs font-medium text-fg"

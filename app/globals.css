@@ -77,21 +77,14 @@ body {
   color: var(--fg);
 }
 
-/* Keycap-style tile: top highlight, hard bottom edge, optional colored glow */
+/* Keycap-style tile: top highlight, hard bottom edge, optional colored glow.
+   Tiles set --glow through a utility class; the fallback keeps this rule
+   unlayered without overriding them. */
 .keycap {
-  --glow: transparent;
   box-shadow:
     inset 0 1px 0 var(--keycap-hi),
     0 2px 0 var(--keycap-lo),
-    0 8px 20px -8px color-mix(in srgb, var(--glow) 40%, transparent);
-}
-
-/* Hide the horizontal scrollbar of the tile strip */
-.no-scrollbar {
-  scrollbar-width: none;
-}
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+    0 8px 20px -8px color-mix(in srgb, var(--glow, transparent) 40%, transparent);
 }
 
 @keyframes tile-pop {
